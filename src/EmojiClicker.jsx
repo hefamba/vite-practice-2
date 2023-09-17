@@ -12,6 +12,14 @@ export default function EmojiClicker() {
       return prev.filter((e) => e.id !== id);
     });
   }
+
+  const makeEverthingAHeart = () => {
+    return setEmojis((prev) =>
+      prev.map((e) => {
+        return { ...e, emoji: '💙' };
+      })
+    );
+  };
   return (
     <div>
       {emojis.map((e) => (
@@ -20,6 +28,7 @@ export default function EmojiClicker() {
         </h2>
       ))}
       <button onClick={addEmoji}>Add Emoji</button>
+      <button onClick={makeEverthingAHeart}>Give Me Hearts</button>
     </div>
   );
 }
