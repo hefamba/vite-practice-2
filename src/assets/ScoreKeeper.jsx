@@ -1,24 +1,35 @@
 import React from 'react';
 import { useState } from 'react';
 
-export default function ScoreKeeper() {
-  const [scores, setScores] = useState({ player1: 0, player2: 0 });
-  const player1Add = () => {
+export default function ScoreKeeper({ numPlayer = 3, target = 5 }) {
+  const [scores, setScores] = useState(new Array(numPlayer).fill(0));
+  const incrementScore = (idx) => {
+    // setScores((prev) => {
+    //   const copy = [...prev];
+    //   copy[idx] += 1;
+    //   return copy;
+    // });
+
     setScores((prev) => {
-      return { ...prev, player1: scores.player1 + 1 };
+      return prev.map((score, i) => {
+        if (i === idx) return score + 1;
+        return score;
+      });
     });
   };
-  const player2Add = () => {
-    setScores((prev) => {
-      return { ...prev, player2: scores.player2 + 1 };
-    });
-  };
+
   return (
     <div>
-      <p>Playler 1: {scores.player1}</p>
-      <p>Playler 2: {scores.player2}</p>
-      <button onClick={player1Add}>+1 player 1</button>
-      <button onClick={player2Add}>+1 player 2</button>
+      <h1>Score Keeper </h1>
+
+      <ul>
+        {scores.map((score, idx) => (
+          <li key={idx}>
+            {`Player${idx + 1}: ${score}`}
+            <button onClick={() => incrementScore(idx)}>+1</button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
